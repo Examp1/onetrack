@@ -1,14 +1,17 @@
 <script setup>
 import appNavItem from '@/components/navigations/app-nav-item.vue'
-import { NAV_ITEMS } from '@/constans.js'
-
+import { NAV_ITEMS } from '@/constants.js'
+import { isPageValid } from '@/validators';
 defineProps({
     currentPage: {
         type: String,
         required: true,
+        validator: isPageValid
     },
 })
-const emits = defineEmits(['updateCurrentPage'])
+const emits = defineEmits({
+    updateCurrentPage: isPageValid
+})
 
 </script>
 <template>
