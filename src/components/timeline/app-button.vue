@@ -1,8 +1,18 @@
 <script setup>
+import { BUTTON_TYPE } from '@/constants';
+import { isButtonTypeValid } from '@/validators';
+
+defineProps({
+    type: {
+        type: String,
+        default: 'primary',
+        validator: isButtonTypeValid
+    }
+})
 </script>
 
 <template>
-    <button class="rounded bg-gray-100 p-3 enabled:hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-50">
+    <button :class="BUTTON_TYPE[type]" class="rounded p-3 disabled:cursor-not-allowed disabled:opacity-50">
         <slot />
     </button>
 </template>

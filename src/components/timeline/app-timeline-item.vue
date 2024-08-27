@@ -8,15 +8,15 @@ defineProps({
     timelineItem: {
         type: Object,
         validator: isTimelineItemValid
+    },
+    activitySelectOptions: {
+        type: Array,
+        required: true
     }
 })
 
 
-const options = [
-    { value: 1, label: 'Codinng' },
-    { value: 2, label: 'Training' },
-    { value: 3, label: 'Reading' },
-]
+
 const selectActiviteID = ref()
 </script>
 
@@ -24,7 +24,7 @@ const selectActiviteID = ref()
     <li class="relative flex flex-col gap-2 border-t border-gray-200 py-20 px-4">
         <TheTimelineHour :hour="timelineItem.hour" />
         <div class="flex gap-2">
-            <AppSelect :selected="selectActiviteID" :options="options" placeholder="Rest"
+            <AppSelect :selected="selectActiviteID" :options="activitySelectOptions" placeholder="Rest"
                 @select="selectActiviteID = $event" />
         </div>
     </li>

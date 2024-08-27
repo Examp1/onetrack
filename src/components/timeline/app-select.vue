@@ -30,7 +30,7 @@ const isNotSelected = computed(() => {
 </script>
 
 <template>
-    <AppButton @click="emit('select', null)">
+    <AppButton @click="emit('select', null)" type="neutral">
         <XMarkIcon class="h-8"></XMarkIcon>
     </AppButton>
     <select class="w-full truncate rounded bg-gray-100 py-2 px-2 text-2xl"
