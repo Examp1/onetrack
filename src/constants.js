@@ -4,6 +4,7 @@ export const PAGE_ACTIVITIES = 'activities'
 export const PAGE_PROGRESS = 'progress'
 export const HOURS_IN_DAY = 24
 export const MIDNIGHT_HOUR = 0
+export const SECONDS_IN_HOUR = 3600
 export const NAV_ITEMS = {
   [PAGE_TIMELINE]: ClockIcon,
   [PAGE_ACTIVITIES]: ListBulletIcon,
@@ -16,15 +17,15 @@ export const BUTTON_TYPE = {
 }
 export const PERIOD_SELECT_OPTIONS = [
   {
-    value: 15,
+    value: 15 * 60,
     label: '0:15'
   },
   {
-    value: 35,
+    value: 35 * 60,
     label: '0:35'
   },
   {
-    value: 45,
+    value: 45 * 60,
     label: '0:45'
   }
 ]

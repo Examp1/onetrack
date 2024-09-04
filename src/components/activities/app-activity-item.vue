@@ -9,7 +9,7 @@ import { ref } from "vue";
 
 defineProps({
     activity: {
-        type: String,
+        type: Object,
         required: true,
         validate: isActivityValid
     }
@@ -18,8 +18,7 @@ defineProps({
 const emit = defineEmits({
     delete: isUndefined
 })
-
-const secondsToComplete = ref(null)
+const secondsToComplete = ref(0)
 
 </script>
 
@@ -29,7 +28,7 @@ const secondsToComplete = ref(null)
             <AppButton type="danger" @click="emit('delete')">
                 <TrashIcon class="h-8"></TrashIcon>
             </AppButton>
-            <span class="trancate text-xl">{{ activity }}</span>
+            <span class="trancate text-xl">{{ activity.name }}</span>
         </div>
         <div class="flex gap-2">
             <AppSelect placeholder="h:mm" :options="PERIOD_SELECT_OPTIONS" :selected="secondsToComplete"

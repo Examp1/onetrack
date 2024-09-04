@@ -23,12 +23,16 @@ export function isUndefinedOrNull(value) {
 export function isNumberOrNull(value) {
   return isNumber(value) || isNull(value)
 }
+export function isSelectValueValid(value) {
+  return isNumberOrNull(value) || isNoEmptyString(value)
+}
 
 export function isHourValid(hour) {
   return isNumber(hour) && isBetween(hour, MIDNIGHT_HOUR, HOURS_IN_DAY - 1)
 }
-export function isActivityValid(activity) {
-  return isNoEmptyString(activity)
+export function isActivityValid({ id, name, secondsToComplete }) {
+  console.log(id, name, secondsToComplete)
+  return [isNoEmptyString(id), isNoEmptyString(name), isNumber(secondsToComplete)].every(Boolean)
 }
 
 export function validateActivities(activities) {
@@ -40,11 +44,14 @@ export function isButtonTypeValid(btn) {
 export function isUndefined(value) {
   return value === undefined
 }
+export function isNull(value) {
+  return value === null
+}
 
 // utility functions
 
 function isSelectOptionValid({ value, label }) {
-  return isNumber(value) && isNoEmptyString(label)
+  return isNumber(value) || (isNoEmptyString(value) && isNoEmptyString(label))
 }
 function isNoEmptyString(value) {
   return isString(value) && value.length > 0
@@ -60,8 +67,4 @@ function isNumber(value) {
 
 function isString(value) {
   return typeof value === 'string'
-}
-
-function isNull(value) {
-  return value === null
 }

@@ -1,10 +1,9 @@
 <script setup>
-import { ref } from 'vue';
 import AppSelect from './app-select.vue';
-import { isTimelineItemValid } from '@/validators';
+import { isActivityValid, isNull, isTimelineItemValid, validateActivities } from '@/validators';
 import TheTimelineHour from './the-timeline-hour.vue';
 
-defineProps({
+const props = defineProps({
     timelineItem: {
         type: Object,
         validator: isTimelineItemValid
@@ -12,20 +11,32 @@ defineProps({
     activitySelectOptions: {
         type: Array,
         required: true
+    },
+    activities: {
+        type: Array,
+        required: true,
+        validator: validateActivities
     }
 })
 
+const emit = defineEmits({
+    selectActivity(activity) {
+        return isNull(activity) || isActivityValid(activity)
+    }
+})
 
+function selectActivite(id) {
+    emit('selectActivity', props.activities.find((activity) => activity.id == id) || null)
+}
 
-const selectActiviteID = ref()
 </script>
 
 <template>
     <li class="relative flex flex-col gap-2 border-t border-gray-200 py-20 px-4">
         <TheTimelineHour :hour="timelineItem.hour" />
         <div class="flex gap-2">
-            <AppSelect :selected="selectActiviteID" :options="activitySelectOptions" placeholder="Rest"
-                @select="selectActiviteID = $event" />
+            <AppSelect :selected="timelineItem.activityID" :options="activitySelectOptions" placeholder="Rest"
+                @select="selectActivite" />
         </div>
     </li>
 </template>
