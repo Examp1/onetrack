@@ -1,7 +1,10 @@
 <script setup>
 import AppSelect from './app-select.vue';
-import { isActivityValid, isNull, isTimelineItemValid, validateActivities } from '@/validators';
+import { isActivityValid, isTimelineItemValid, validateActivities } from '@/validators';
 import TheTimelineHour from './the-timeline-hour.vue';
+import { NULLABLE_ACTIVITY } from '@/constants';
+import AppCounter from './app-counter.vue';
+
 
 const props = defineProps({
     timelineItem: {
@@ -20,13 +23,15 @@ const props = defineProps({
 })
 
 const emit = defineEmits({
-    selectActivity(activity) {
-        return isNull(activity) || isActivityValid(activity)
-    }
+    selectActivity: isActivityValid
+
 })
 
 function selectActivite(id) {
-    emit('selectActivity', props.activities.find((activity) => activity.id == id) || null)
+    emit('selectActivity', findActivityByID(id))
+}
+function findActivityByID(id) {
+    return props.activities.find((activity) => activity.id == id) || NULLABLE_ACTIVITY
 }
 
 </script>
@@ -38,6 +43,8 @@ function selectActivite(id) {
             <AppSelect :selected="timelineItem.activityID" :options="activitySelectOptions" placeholder="Rest"
                 @select="selectActivite" />
         </div>
+        <AppCounter :seconds="timelineItem.activitySeconds"></AppCounter>
+
     </li>
 </template>
 

@@ -2,9 +2,8 @@
 import AppButton from "@/components/timeline/app-button.vue";
 import AppSelect from "@/components/timeline/app-select.vue";
 import { PERIOD_SELECT_OPTIONS } from "@/constants";
-import { isActivityValid, isUndefined } from "@/validators";
+import { isActivityValid, isNumber, isUndefined } from "@/validators";
 import { TrashIcon } from '@heroicons/vue/24/outline'
-import { ref } from "vue";
 
 
 defineProps({
@@ -16,9 +15,9 @@ defineProps({
 })
 
 const emit = defineEmits({
-    delete: isUndefined
+    delete: isUndefined,
+    secondsToComplete: isNumber
 })
-const secondsToComplete = ref(0)
 
 </script>
 
@@ -31,8 +30,9 @@ const secondsToComplete = ref(0)
             <span class="trancate text-xl">{{ activity.name }}</span>
         </div>
         <div class="flex gap-2">
-            <AppSelect placeholder="h:mm" :options="PERIOD_SELECT_OPTIONS" :selected="secondsToComplete"
-                @select="secondsToComplete = $event"></AppSelect>
+            <AppSelect placeholder="hh:mm" :options="PERIOD_SELECT_OPTIONS"
+                :selected="activity.secondsToComplete || null" @select="emit('secondsToComplete', $event || 0)">
+            </AppSelect>
         </div>
     </li>
 </template>

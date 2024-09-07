@@ -31,8 +31,11 @@ export function isHourValid(hour) {
   return isNumber(hour) && isBetween(hour, MIDNIGHT_HOUR, HOURS_IN_DAY - 1)
 }
 export function isActivityValid({ id, name, secondsToComplete }) {
-  console.log(id, name, secondsToComplete)
-  return [isNoEmptyString(id), isNoEmptyString(name), isNumber(secondsToComplete)].every(Boolean)
+  if (isNull(id)) {
+    return true
+  } else {
+    return [isNoEmptyString(id), isNoEmptyString(name), isNumber(secondsToComplete)].every(Boolean)
+  }
 }
 
 export function validateActivities(activities) {
@@ -48,6 +51,10 @@ export function isNull(value) {
   return value === null
 }
 
+export function isNumber(value) {
+  return typeof value === 'number'
+}
+
 // utility functions
 
 function isSelectOptionValid({ value, label }) {
@@ -59,10 +66,6 @@ function isNoEmptyString(value) {
 
 function isBetween(value, start, end) {
   return value >= start && value <= end
-}
-
-function isNumber(value) {
-  return typeof value === 'number'
 }
 
 function isString(value) {

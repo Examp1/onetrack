@@ -32,9 +32,14 @@ const deleteActivity = (activity) => {
 const createActivity = (newActivity) => {
   activities.value.push(newActivity)
 }
-function setTimelineItemActivity({ timelineItem, activity }) {
-  timelineItem.activityID = activity?.id || null
+function setTimelineItemActivity(timelineItem, activity) {
+  timelineItem.activityID = activity.id
 }
+
+function setActivitySecondsToComplete(activity, secondsToComplete) {
+  activity.secondsToComplete = secondsToComplete;
+}
+
 </script>
 
 <template>
@@ -43,7 +48,7 @@ function setTimelineItemActivity({ timelineItem, activity }) {
     <theTimiline v-show="currentPage === PAGE_TIMELINE" :activity-select-options="activitySelectOptions"
       :activities="activities" :timeline-items="timelineItems" @setTimelineItemActivity="setTimelineItemActivity" />
     <theActivities v-show="currentPage === PAGE_ACTIVITIES" :activities="activities" @deleteActivity="deleteActivity"
-      @createActivity="createActivity" />
+      @createActivity="createActivity" @setActivitySecondsToComplete="setActivitySecondsToComplete" />
     <theProgress v-show="currentPage === PAGE_PROGRESS" />
   </main>
   <theNav :current-page="currentPage" @updateCurrentPage="goTo($event)" />
