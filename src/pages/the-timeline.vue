@@ -1,6 +1,7 @@
 <script setup>
 import AppTimelineItem from "@/components/timeline/app-timeline-item.vue";
 import { isActivityValid, isTimelineItemValid, validateActivities, validateSelectOptions } from "@/validators";
+import { onMounted, ref } from "vue";
 
 defineProps({
     activitySelectOptions: {
@@ -28,13 +29,22 @@ const emit = defineEmits({
     }
 });
 
+function scrollToCurrentTimelineItem() {
+    const currentHour = new Date().getHours()
+    timeliItemsRefs.value[Math.max(0, currentHour - 1)].$el.scrollIntoView()
+}
+const timeliItemsRefs = ref([])
+
+onMounted(scrollToCurrentTimelineItem)
+
 </script>
 
 <template>
     <div class="mt-7">
         <ul>
             <AppTimelineItem v-for="timelineItem in timelineItems" :activity-select-options="activitySelectOptions"
-                :key="timelineItem.hour" :timeline-item="timelineItem" :activities="activities" @selectActivity="emit('setTimelineItemActivity',
+                ref="timeliItemsRefs" :key="timelineItem.hour" :timeline-item="timelineItem" :activities="activities"
+                @selectActivity="emit('setTimelineItemActivity',
                     timelineItem, $event
                 )">
             </AppTimelineItem>

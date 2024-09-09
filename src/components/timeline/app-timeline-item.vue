@@ -43,7 +43,7 @@ function findActivityByID(id) {
             <AppSelect :selected="timelineItem.activityID" :options="activitySelectOptions" placeholder="Rest"
                 @select="selectActivite" />
         </div>
-        <AppCounter :seconds="timelineItem.activitySeconds"></AppCounter>
+        <AppCounter :seconds="timelineItem.activitySeconds" :hour="timelineItem.hour"></AppCounter>
 
     </li>
 </template>

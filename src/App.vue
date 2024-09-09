@@ -18,12 +18,13 @@ const goTo = (page) => {
 const activities = ref(generateActivities())
 
 const activitySelectOptions = computed(() => generateActivitySelectOptions(activities.value));
-const timelineItems = ref(generateTimelimeItems())
+const timelineItems = ref(generateTimelimeItems(activities.value))
 
 const deleteActivity = (activity) => {
   timelineItems.value.forEach(timelineItem => {
     if (timelineItem.activityID === activity.id) {
       timelineItem.activityID = null
+      timelineItem.activitySeconds = 0
     }
   })
 
